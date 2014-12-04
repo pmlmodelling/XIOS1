@@ -19,15 +19,16 @@ PROGRAM test_complete
   TYPE(xios_field) :: field_hdl
   TYPE(xios_fieldgroup) :: fieldgroup_hdl
   TYPE(xios_file) :: file_hdl
+  TYPE(xios_variable) :: var_hdl
   LOGICAL :: ok
-  CHARACTER(len=256) :: crname
-
+  CHARACTER(len=256) :: crname, str_temp
   DOUBLE PRECISION,DIMENSION(ni_glo,nj_glo) :: lon_glo,lat_glo
   DOUBLE PRECISION :: field_A_glo(ni_glo,nj_glo,llm)
   DOUBLE PRECISION,ALLOCATABLE :: lon(:,:),lat(:,:),field_A_atm(:,:,:), field_A_srf(:,:), lonvalue(:)
   INTEGER, ALLOCATABLE :: kindex(:)
   INTEGER :: ni,ibegin,iend,nj,jbegin,jend
   INTEGER :: i,j,l,ts,n, nb_pt
+  INTEGER :: iret
 
 !!! MPI Initialization
 
@@ -44,10 +45,10 @@ PROGRAM test_complete
   
 
 !###########################################################################
-! Contexte ATM
+! ATM Context
 !###########################################################################
 
-!!! Initialisation des coordonnées globales et locales pour la grille régulière
+!!! Initialization of global and local coordinates for regular grid
 
   DO j=1,nj_glo
     DO i=1,ni_glo
@@ -76,7 +77,7 @@ PROGRAM test_complete
   field_A_atm(1:ni,1:nj,:)=field_A_glo(ibegin:iend,jbegin:jend,:)
  
 
-!!! Context ATMOSPHERE
+!!! ATMOSPHERE context
 
   CALL xios_context_initialize("atmosphere",comm)
   CALL xios_get_handle("atmosphere",ctx_hdl)
@@ -96,31 +97,31 @@ PROGRAM test_complete
   CALL xios_set_domain_attr("domain_atm_zoom",data_dim=2, data_ibegin=-1, data_ni=ni+2, data_jbegin=-2, data_nj=nj+4)
   CALL xios_set_domain_attr("domain_atm_zoom",lonvalue=RESHAPE(lon,(/ni*nj/)),latvalue=RESHAPE(lat,(/ni*nj/)))
 
-!!! Activation du groupe field_definition
+!!! field_definition group activation
 
   CALL xios_set_fieldgroup_attr("field_definition",enabled=.TRUE.)
 
-!!! Création d un nouveau champ 
+!!! Creation of new field
 
   CALL xios_get_handle("field_definition",fieldgroup_hdl)
   CALL xios_add_child(fieldgroup_hdl,field_hdl,"field_B_atm")
 
-!!! Heritage des attributs d un autre champ
+!!! Attribute inheritance from another field 
 
   CALL xios_set_attr(field_hdl,field_ref="field_A_atm",name="field_B_atm")
   
-!!! Affectation de ce nouveau champ au fichier avec un nouveau nom
+!!! Assign new field into a file (with a new name)
 
   CALL xios_get_handle("output_atmosphere",file_hdl)
   CALL xios_add_child(file_hdl,field_hdl)
   CALL xios_set_attr(field_hdl,field_ref="field_B_atm",name="field_C_atm")
     
-!!! Definition du timestep
+!!! Timestep definition 
 
   dtime%second=3600
   CALL xios_set_timestep(dtime) 
     
-!!! Recupration des valeurs des longitudes et de taille des domaines locaux (pour test de fonctionnalité)
+!!! Get longitude values and local domain sizes (to check functionality)
 
   ni=0 ; lonvalue(:)=0
   CALL xios_get_domain_attr("domain_atm",ni=ni,lonvalue=lonvalue)
@@ -128,36 +129,36 @@ PROGRAM test_complete
   PRINT *,"ni",ni
   PRINT *,"lonvalue",lonvalue ;
 
-!!! Fin de la definition du contexte
+!!! End of context definition
 
   CALL xios_close_context_definition()
 
-!!! Test des valeurs des champs/fichiers
+!!! Test on fields/files values
   
-  !!! Attribut defini ? 
+  !!! Is an attribute defined ?
 
   CALL xios_is_defined_field_attr("field_A_atm",enabled=ok)
   PRINT *,"field_A_atm : attribute enabled is defined ? ",ok
 
-  !!! Recuperer la valeur d un attribut
+  !!! Get an attibute value
   
   CALL xios_get_field_attr("field_A_atm",name=crname)
   PRINT *,"field_A_atm : attribute name is : ",TRIM(crname)
 
-  !!! Champ actif (besoin de fournir la valeur) ? 
+  !!! Is a field active (i.e need to give the value ) ?
 
     PRINT*,"field field_A_atm is active ? ",xios_field_is_active("field_A_atm")
 
-  !!! Champ defini ?
+  !!! Is a field defined ?
 
     PRINT*,"field field_A_atm is valid ?",xios_is_valid_field("field_A_atm")
 
 
 !###########################################################################
-! Contexte SRF
+! SRF Context
 !###########################################################################
 
-!!! Initialisation des coordonnées globales et locales pour la grille indexee (1 point sur 2)
+!!! Initialization of global and local coordinates for indexed grid (1 point every 2 points)
 
     nb_pt=ni*nj/2
     ALLOCATE(kindex(nb_pt),field_A_srf(nb_pt,llm))
@@ -180,27 +181,48 @@ PROGRAM test_complete
   CALL xios_set_domain_attr("domain_srf",data_n_index=nb_pt, data_i_index=kindex)
   CALL xios_set_domain_attr("domain_srf",lonvalue=RESHAPE(lon,(/ni*nj/)),latvalue=RESHAPE(lat,(/ni*nj/)))
 
-!!! Création d un nouveau champ 
+!!! Creation of new field 
 
   CALL xios_get_handle("field_definition",fieldgroup_hdl)
   CALL xios_add_child(fieldgroup_hdl,field_hdl,"field_B_srf")
 
-!!! Heritage des attributs d un autre champ
+!!! Attribute inheritance from another field 
 
   CALL xios_set_attr(field_hdl,field_ref="field_A_srf",name="field_B_srf")
-  
-!!! Affectation de ce nouveau champ au fichier avec un nouveau nom
+
+!!! Assign new field into a file (with a new name)
 
   CALL xios_get_handle("output_surface",file_hdl)
   CALL xios_add_child(file_hdl,field_hdl)
   CALL xios_set_attr(field_hdl,field_ref="field_B_srf",name="field_C_srf")
-    
-!!! Definition du timestep
+
+!!! Add a variable as field local attribute
+
+  CALL xios_add_child(field_hdl,var_hdl,"my_local_attribute")
+  CALL xios_set_attr(var_hdl,type="string")
+  iret=xios_setVar("my_local_attribute","attribute_local")
+
+!!! Add a variable as file global attribute
+
+  CALL xios_add_child(file_hdl,var_hdl,"my_global_attribute")
+  CALL xios_set_attr(var_hdl,type="string")
+  iret=xios_setVar("my_global_attribute","attribute_global")
+
+!!! Modify a variable used as attribute (defined in xml file)
+
+  iret=xios_setVar("my_global_attribute_xml","6h_file")
+
+!!! Get the value of a variable (defined in xml file)
+  
+  iret=xios_getVar("my_attribute1",str_temp)
+  PRINT *, "my_attribute1 is :",TRIM(str_temp)
+      
+!!! Timestep definition
 
   dtime%second=1800
   CALL xios_set_timestep(dtime) 
     
-!!! Recupration des valeurs des longitudes et de taille des domaines locaux (pour test de fonctionnalité)
+!!! Get longitude values and local domain sizes (to check functionality)
 
   ni=0 ; lonvalue(:)=0
   CALL xios_get_domain_attr("domain_srf",ni=ni,lonvalue=lonvalue)
@@ -208,13 +230,12 @@ PROGRAM test_complete
   PRINT *,"ni",ni
   PRINT *,"lonvalue",lonvalue ;
 
-!!! Fin de la definition du contexte SRF
+!!! End of SRF context definition
 
   CALL xios_close_context_definition()
 
-
 !####################################################################################
-!!! Boucle temporelle
+!!! Loop on timesteps
 !####################################################################################
 
     DO ts=1,24*10
@@ -222,24 +243,24 @@ PROGRAM test_complete
       CALL xios_get_handle("atmosphere",ctx_hdl)
       CALL xios_set_current_context(ctx_hdl)    
 
-!!! Mise a jour du pas de temps
+!!! Update of calendar 
 
       CALL xios_update_calendar(ts)
 
-!!! On donne la valeur du champ atm
+!!! Put the value of atm field
 
       CALL xios_send_field("field_A_atm",field_A_atm)
 
-!!! On change de contexte
+!!! Change of context 
 
       CALL xios_get_handle("surface",ctx_hdl)
       CALL xios_set_current_context(ctx_hdl)    
 
-!!! Mise a jour du pas de temps
+!!! Update of calendar 
 
       CALL xios_update_calendar(ts)
 
-!!! On donne la valeur du champ srf
+!!! Put the value of srf field
 
       CALL xios_send_field("field_A_srf",field_A_srf)
 
@@ -247,17 +268,17 @@ PROGRAM test_complete
     ENDDO
 
 !####################################################################################
-!!! Finalisation
+!!! Finalization
 !####################################################################################
 
-!!! Fin des contextes
-    
+!!! End of contextes
+
     CALL xios_context_finalize()
     CALL xios_get_handle("atmosphere",ctx_hdl)
     CALL xios_set_current_context(ctx_hdl)    
     CALL xios_context_finalize()
     
-!!! Fin de XIOS
+!!! End of XIOS
 
     CALL xios_finalize()
   
