@@ -72,10 +72,18 @@ namespace xios {
    void CContext::solveCalendar(void)
    {
       if (this->calendar.get() != NULL) return;
-      if (calendar_type.isEmpty() || start_date.isEmpty())
+      if (calendar_type.isEmpty())
          ERROR(" CContext::solveCalendar(void)",
                << "[ context id = " << this->getId() << " ] "
-               << "Impossible to define a calendar (an attribute is missing).");
+               << "Impossible to define a calendar: the calendar type is missing.");
+      if (start_date.isEmpty())
+         ERROR(" CContext::solveCalendar(void)",
+               << "[ context id = " << this->getId() << " ] "
+               << "Impossible to define a calendar: the start date is missing.");
+      if (timestep.isEmpty())
+         ERROR(" CContext::solveCalendar(void)",
+               << "[ context id = " << this->getId() << " ] "
+               << "Impossible to define a calendar: the timestep is missing.");
 
 #define DECLARE_CALENDAR(MType  , mtype)                              \
    if (calendar_type.getValue().compare(#mtype) == 0)                 \
@@ -85,8 +93,7 @@ namespace xios {
            (new C##MType##Calendar(start_date.getValue()));     \
       else this->calendar =  boost::shared_ptr<CCalendar>       \
            (new C##MType##Calendar(start_date.getValue(),time_origin.getValue()));     \
-      if (!this->timestep.isEmpty())                                  \
-       this->calendar->setTimeStep                                    \
+      this->calendar->setTimeStep                                     \
           (CDuration::FromString(this->timestep.getValue()));   \
       return;                                                         \
    }
