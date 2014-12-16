@@ -118,7 +118,7 @@ namespace xios
       CDate::operator Time(void) const // Non vérifiée, pas optimisée ...
       {
          // Todo : Tester si la date courante est supérieure à la date initiale.
-         Time retvalue = - relCalendar.getNbSecond(relCalendar.getInitDate())
+         Time retvalue = - relCalendar.getNbSecond(relCalendar.getTimeOrigin())
                          + relCalendar.getNbSecond(*this);
 
          if ((relCalendar.getId().compare("D360")    == 0) ||
