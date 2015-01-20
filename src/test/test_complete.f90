@@ -28,7 +28,6 @@ PROGRAM test_complete
   INTEGER, ALLOCATABLE :: kindex(:)
   INTEGER :: ni,ibegin,iend,nj,jbegin,jend
   INTEGER :: i,j,l,ts,n, nb_pt
-  INTEGER :: iret
 
 !!! MPI Initialization
 
@@ -200,21 +199,21 @@ PROGRAM test_complete
 
   CALL xios_add_child(field_hdl,var_hdl,"my_local_attribute")
   CALL xios_set_attr(var_hdl,type="string")
-  iret=xios_setVar("my_local_attribute","attribute_local")
+  ok=xios_setVar("my_local_attribute","attribute_local")
 
 !!! Add a variable as file global attribute
 
   CALL xios_add_child(file_hdl,var_hdl,"my_global_attribute")
   CALL xios_set_attr(var_hdl,type="string")
-  iret=xios_setVar("my_global_attribute","attribute_global")
+  ok=xios_setVar("my_global_attribute","attribute_global")
 
 !!! Modify a variable used as attribute (defined in xml file)
 
-  iret=xios_setVar("my_global_attribute_xml","6h_file")
+  ok=xios_setVar("my_global_attribute_xml","6h_file")
 
 !!! Get the value of a variable (defined in xml file)
   
-  iret=xios_getVar("my_attribute1",str_temp)
+  ok=xios_getVar("my_attribute1",str_temp)
   PRINT *, "my_attribute1 is :",TRIM(str_temp)
       
 !!! Timestep definition
