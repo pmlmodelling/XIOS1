@@ -34,7 +34,7 @@ namespace xios
 
      static MPI_Comm globalComm ;
 
-     static bool printInfo2File;
+     static bool printLogs2Files; //!< Printing out logs into files
      static bool usingOasis ;
      static bool usingServer ;
      static size_t bufferSize ;
@@ -48,9 +48,6 @@ namespace xios
 
      //! Setting xios NOT to use server mode
      static void setNotUsingServer();
-
-      //! A silly variable to detect whether one process is in client or server side. Should be removed on refactoring code
-     static bool isServerSide;
 
   } ;
 

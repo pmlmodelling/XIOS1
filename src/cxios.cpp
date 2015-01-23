@@ -26,8 +26,7 @@ namespace xios
   double CXios::bufferServerFactorSize=2 ;
   size_t CXios::defaultBufferSize=1024*1024*100 ; // 100Mo
   double CXios::defaultBufferServerFactorSize=2 ;
-  bool CXios::printInfo2File;
-  bool CXios::isServerSide;
+  bool CXios::printLogs2Files;
 
 
   void CXios::initialize()
@@ -37,7 +36,7 @@ namespace xios
     usingOasis=getin<bool>("using_oasis",false) ;
     usingServer=getin<bool>("using_server",false) ;
     info.setLevel(getin<int>("info_level",0)) ;
-    printInfo2File=getin<bool>("print_file",false);
+    printLogs2Files=getin<bool>("print_file",false);
     bufferSize=getin<size_t>("buffer_size",defaultBufferSize) ;
     bufferServerFactorSize=getin<double>("buffer_server_factor_size",defaultBufferServerFactorSize) ;
     globalComm=MPI_COMM_WORLD ;
@@ -53,13 +52,19 @@ namespace xios
 
     CClient::initialize(codeId,localComm,returnComm) ;
 
-    if (usingServer) isServerSide = isServer=false;
-    else isServerSide = isServer=true;
+    if (usingServer) isServer=false;
+    else isServer=true;
 
-    if (printInfo2File)
+    if (printLogs2Files)
+    {
       CClient::openInfoStream(clientFile);
+      CClient::openErrorStream(clientFile);
+    }
     else
+    {
       CClient::openInfoStream();
+      CClient::openErrorStream();
+    }
   }
 
   void CXios::clientFinalize(void)
@@ -81,15 +86,19 @@ namespace xios
     isClient=true;
     isServer=false ;
 
-    isServerSide = true;
-
     // Initialize all aspects MPI
     CServer::initialize();
 
-    if (printInfo2File)
+    if (printLogs2Files)
+    {
       CServer::openInfoStream(serverFile);
+      CServer::openErrorStream(serverFile);
+    }
     else
+    {
       CServer::openInfoStream();
+      CServer::openErrorStream();
+    }
 
     // Enter the loop to listen message from Client
     CServer::eventLoop();
