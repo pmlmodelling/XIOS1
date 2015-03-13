@@ -10,8 +10,3 @@ PROGRAM parse_xml
   CALL xios_init() ! This will parse the XML file and report any parsing error
 
 END PROGRAM parse_xml
-
-
-  
-
-  
