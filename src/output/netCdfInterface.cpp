@@ -719,8 +719,8 @@ StdString CNetCdfInterface::openMode2String(int oMode)
   default:
     modeMes = StdString("In the composed opening mode");
     break;
-  return modeMes;
   }
+  return modeMes;
 }
 
 StdString CNetCdfInterface::creationMode2String(int cMode)
@@ -746,8 +746,8 @@ StdString CNetCdfInterface::creationMode2String(int cMode)
   default:
     modeMes = StdString("In the composed creation mode");
     break;
-  return modeMes;
   }
+  return modeMes;
 }
 
  }
