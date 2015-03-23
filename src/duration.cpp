@@ -19,26 +19,26 @@ namespace xios
 
       CDuration & CDuration::operator=(const CDuration & duration)
       {
-         year = duration.year;  month  = duration.month ; day    = duration.day;
-         hour = duration.hour;  minute = duration.minute; second = duration.second; timestep=duration.timestep ;
-         return (*this);
+         year = duration.year;  month  = duration.month;  day    = duration.day;
+         hour = duration.hour;  minute = duration.minute; second = duration.second; timestep=duration.timestep;
+         return *this;
       }
 
       StdOStream & operator<<(StdOStream & out, const CDuration & duration)
       {
          StdOStringStream sout;
          bool testValue = true;
-         if(duration.year   != 0.0) { testValue = false; sout << duration.year   << "y " ; }
+         if(duration.year   != 0.0) { testValue = false; sout << duration.year   << "y "; }
          if(duration.month  != 0.0) { testValue = false; sout << duration.month  << "mo "; }
-         if(duration.day    != 0.0) { testValue = false; sout << duration.day    << "d " ; }
-         if(duration.hour   != 0.0) { testValue = false; sout << duration.hour   << "h " ; }
+         if(duration.day    != 0.0) { testValue = false; sout << duration.day    << "d "; }
+         if(duration.hour   != 0.0) { testValue = false; sout << duration.hour   << "h "; }
          if(duration.minute != 0.0) { testValue = false; sout << duration.minute << "mi "; }
-         if(duration.second != 0.0) { testValue = false; sout << duration.second << "s " ; }
-         if(duration.timestep != 0.0 || testValue)       { sout << duration.timestep << "ts " ; }
+         if(duration.second != 0.0) { testValue = false; sout << duration.second << "s "; }
+         if(duration.timestep != 0.0 || testValue)       { sout << duration.timestep << "ts "; }
 
          // << suppression de l'espace en fin de chaîne.
          out << (sout.str().substr(0, sout.str().size()-1));
-         return (out);
+         return out;
       }
 
       StdIStream & operator>>(StdIStream & in , CDuration & duration)
@@ -49,15 +49,15 @@ namespace xios
          char   c = '/';
          while (!in.eof())
          {
-               if (!(in >> v >> c)) 
+               if (!(in >> v >> c))
                {
-                 //DEBUG("----> Pb StdIStream & operator>>(StdIStream & in , CDuration & duration)") ;
-                 //if (in.eof())  DEBUG("----> Fin de fichier StdIStream & operator>>(StdIStream & in , CDuration & duration)") ;
+                 //DEBUG("----> Pb StdIStream & operator>>(StdIStream & in , CDuration & duration)");
+                 //if (in.eof())  DEBUG("----> Fin de fichier StdIStream & operator>>(StdIStream & in , CDuration & duration)");
                }
-               if (in.eof())  
+               if (in.eof())
                {
-                 //DEBUG("----> Fin de fichier StdIStream & operator>>(StdIStream & in , CDuration & duration)") ;
-                 break ;
+                 //DEBUG("----> Fin de fichier StdIStream & operator>>(StdIStream & in , CDuration & duration)");
+                 break;
                }
                switch (c)
                {
@@ -81,17 +81,17 @@ namespace xios
                   case 't' :
                   {
                     in >> c;
-                    if (c=='s') duration.timestep = v; 
+                    if (c=='s') duration.timestep = v;
                     break;
                   }
-                  
+
                   default:
                      StdString valc; valc.append(1, c);
                      //DEBUG("La chaine \"" << valc << "\" ne permet pas de définir une unité de durée.");
                      break;
                }
             }
-            return (in);
+            return in;
       }
 
       //-----------------------------------------------------------------
@@ -100,25 +100,24 @@ namespace xios
       {
          if ((year == 0) && (month  == 0) && (day    == 0) &&
              (hour == 0) && (minute == 0) && (second == 0) && (timestep == 0))
-            return (true);
-         return (false);
+            return true;
+         return false;
       }
 
       //-----------------------------------------------------------------
       CDuration & CDuration::solveTimeStep(const CCalendar & c)
       {
-        CDuration timeStep=c.getTimeStep() ;
-        second +=timestep*timeStep.second ; 
-        minute +=timestep*timeStep.minute ; 
-        hour +=timestep*timeStep.hour ; 
-        day +=timestep*timeStep.day ; 
-        month +=timestep*timeStep.month ; 
-        year +=timestep*timeStep.year ; 
-        timestep = 0 ;
-
+        CDuration timeStep=c.getTimeStep();
+        second +=timestep*timeStep.second;
+        minute +=timestep*timeStep.minute;
+        hour +=timestep*timeStep.hour;
+        day +=timestep*timeStep.day;
+        month +=timestep*timeStep.month;
+        year +=timestep*timeStep.year;
+        timestep = 0;
+        return *this;
       }
-               
-        
+
       CDuration & CDuration::resolve(const CCalendar & c)
       {
          // Simplification de l'écriture des minutes.
@@ -138,7 +137,7 @@ namespace xios
          // Simplification de l'écriture des années.
          month  += modf(year, &year) * (float)c.getYearLength();
          year   += int(month) /c.getYearLength(); month  = int(month)%c.getYearLength();
-         return (*this);
+         return *this;
       }
 
       //-----------------------------------------------------------------
@@ -147,18 +146,16 @@ namespace xios
       {
          const  CDuration & own = *this;
          StdOStringStream oss; oss << own;
-         return (oss.str());
+         return oss.str();
       }
 
       CDuration CDuration::FromString(const StdString & str)
       {
          CDuration dr = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
          StdIStringStream iss(str); iss >> dr;
-         return (dr);
+         return dr;
       }
 
       ///---------------------------------------------------------------
-
-
 } // namespace xios
 
