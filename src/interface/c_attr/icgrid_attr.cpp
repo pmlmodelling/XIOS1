@@ -36,9 +36,10 @@ extern "C"
   
   bool cxios_is_defined_grid_axis_ref(grid_Ptr grid_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return grid_hdl->axis_ref.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = grid_hdl->axis_ref.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -63,9 +64,10 @@ extern "C"
   
   bool cxios_is_defined_grid_description(grid_Ptr grid_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return grid_hdl->description.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = grid_hdl->description.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -90,9 +92,10 @@ extern "C"
   
   bool cxios_is_defined_grid_domain_ref(grid_Ptr grid_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return grid_hdl->domain_ref.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = grid_hdl->domain_ref.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -116,9 +119,10 @@ extern "C"
   
   bool cxios_is_defined_grid_mask(grid_Ptr grid_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return grid_hdl->mask.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = grid_hdl->mask.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -143,9 +147,10 @@ extern "C"
   
   bool cxios_is_defined_grid_name(grid_Ptr grid_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return grid_hdl->name.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = grid_hdl->name.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   

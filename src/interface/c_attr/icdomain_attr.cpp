@@ -35,9 +35,10 @@ extern "C"
   
   bool cxios_is_defined_domain_bounds_lat(domain_Ptr domain_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return domain_hdl->bounds_lat.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = domain_hdl->bounds_lat.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -61,9 +62,10 @@ extern "C"
   
   bool cxios_is_defined_domain_bounds_lon(domain_Ptr domain_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return domain_hdl->bounds_lon.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = domain_hdl->bounds_lon.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -83,9 +85,10 @@ extern "C"
   
   bool cxios_is_defined_domain_data_dim(domain_Ptr domain_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return domain_hdl->data_dim.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = domain_hdl->data_dim.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -109,9 +112,10 @@ extern "C"
   
   bool cxios_is_defined_domain_data_i_index(domain_Ptr domain_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return domain_hdl->data_i_index.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = domain_hdl->data_i_index.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -131,9 +135,10 @@ extern "C"
   
   bool cxios_is_defined_domain_data_ibegin(domain_Ptr domain_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return domain_hdl->data_ibegin.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = domain_hdl->data_ibegin.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -157,9 +162,10 @@ extern "C"
   
   bool cxios_is_defined_domain_data_j_index(domain_Ptr domain_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return domain_hdl->data_j_index.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = domain_hdl->data_j_index.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -179,9 +185,10 @@ extern "C"
   
   bool cxios_is_defined_domain_data_jbegin(domain_Ptr domain_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return domain_hdl->data_jbegin.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = domain_hdl->data_jbegin.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -201,9 +208,10 @@ extern "C"
   
   bool cxios_is_defined_domain_data_n_index(domain_Ptr domain_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return domain_hdl->data_n_index.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = domain_hdl->data_n_index.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -223,9 +231,10 @@ extern "C"
   
   bool cxios_is_defined_domain_data_ni(domain_Ptr domain_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return domain_hdl->data_ni.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = domain_hdl->data_ni.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -245,9 +254,10 @@ extern "C"
   
   bool cxios_is_defined_domain_data_nj(domain_Ptr domain_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return domain_hdl->data_nj.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = domain_hdl->data_nj.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -272,9 +282,10 @@ extern "C"
   
   bool cxios_is_defined_domain_domain_group_ref(domain_Ptr domain_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return domain_hdl->domain_group_ref.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = domain_hdl->domain_group_ref.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -298,9 +309,10 @@ extern "C"
   
   bool cxios_is_defined_domain_i_index(domain_Ptr domain_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return domain_hdl->i_index.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = domain_hdl->i_index.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -320,9 +332,10 @@ extern "C"
   
   bool cxios_is_defined_domain_ibegin(domain_Ptr domain_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return domain_hdl->ibegin.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = domain_hdl->ibegin.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -342,9 +355,10 @@ extern "C"
   
   bool cxios_is_defined_domain_iend(domain_Ptr domain_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return domain_hdl->iend.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = domain_hdl->iend.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -368,9 +382,10 @@ extern "C"
   
   bool cxios_is_defined_domain_j_index(domain_Ptr domain_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return domain_hdl->j_index.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = domain_hdl->j_index.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -390,9 +405,10 @@ extern "C"
   
   bool cxios_is_defined_domain_jbegin(domain_Ptr domain_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return domain_hdl->jbegin.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = domain_hdl->jbegin.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -412,9 +428,10 @@ extern "C"
   
   bool cxios_is_defined_domain_jend(domain_Ptr domain_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return domain_hdl->jend.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = domain_hdl->jend.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -438,9 +455,10 @@ extern "C"
   
   bool cxios_is_defined_domain_latvalue(domain_Ptr domain_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return domain_hdl->latvalue.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = domain_hdl->latvalue.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -465,9 +483,10 @@ extern "C"
   
   bool cxios_is_defined_domain_long_name(domain_Ptr domain_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return domain_hdl->long_name.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = domain_hdl->long_name.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -491,9 +510,10 @@ extern "C"
   
   bool cxios_is_defined_domain_lonvalue(domain_Ptr domain_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return domain_hdl->lonvalue.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = domain_hdl->lonvalue.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -517,9 +537,10 @@ extern "C"
   
   bool cxios_is_defined_domain_mask(domain_Ptr domain_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return domain_hdl->mask.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = domain_hdl->mask.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -544,9 +565,10 @@ extern "C"
   
   bool cxios_is_defined_domain_name(domain_Ptr domain_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return domain_hdl->name.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = domain_hdl->name.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -566,9 +588,10 @@ extern "C"
   
   bool cxios_is_defined_domain_ni(domain_Ptr domain_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return domain_hdl->ni.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = domain_hdl->ni.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -588,9 +611,10 @@ extern "C"
   
   bool cxios_is_defined_domain_ni_glo(domain_Ptr domain_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return domain_hdl->ni_glo.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = domain_hdl->ni_glo.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -610,9 +634,10 @@ extern "C"
   
   bool cxios_is_defined_domain_nj(domain_Ptr domain_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return domain_hdl->nj.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = domain_hdl->nj.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -632,9 +657,10 @@ extern "C"
   
   bool cxios_is_defined_domain_nj_glo(domain_Ptr domain_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return domain_hdl->nj_glo.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = domain_hdl->nj_glo.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -654,9 +680,10 @@ extern "C"
   
   bool cxios_is_defined_domain_nvertex(domain_Ptr domain_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return domain_hdl->nvertex.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = domain_hdl->nvertex.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -681,9 +708,10 @@ extern "C"
   
   bool cxios_is_defined_domain_standard_name(domain_Ptr domain_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return domain_hdl->standard_name.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = domain_hdl->standard_name.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -708,9 +736,10 @@ extern "C"
   
   bool cxios_is_defined_domain_type(domain_Ptr domain_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return domain_hdl->type.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = domain_hdl->type.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -730,9 +759,10 @@ extern "C"
   
   bool cxios_is_defined_domain_zoom_ibegin(domain_Ptr domain_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return domain_hdl->zoom_ibegin.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = domain_hdl->zoom_ibegin.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -752,9 +782,10 @@ extern "C"
   
   bool cxios_is_defined_domain_zoom_ibegin_loc(domain_Ptr domain_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return domain_hdl->zoom_ibegin_loc.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = domain_hdl->zoom_ibegin_loc.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -774,9 +805,10 @@ extern "C"
   
   bool cxios_is_defined_domain_zoom_jbegin(domain_Ptr domain_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return domain_hdl->zoom_jbegin.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = domain_hdl->zoom_jbegin.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -796,9 +828,10 @@ extern "C"
   
   bool cxios_is_defined_domain_zoom_jbegin_loc(domain_Ptr domain_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return domain_hdl->zoom_jbegin_loc.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = domain_hdl->zoom_jbegin_loc.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -818,9 +851,10 @@ extern "C"
   
   bool cxios_is_defined_domain_zoom_ni(domain_Ptr domain_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return domain_hdl->zoom_ni.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = domain_hdl->zoom_ni.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -840,9 +874,10 @@ extern "C"
   
   bool cxios_is_defined_domain_zoom_ni_loc(domain_Ptr domain_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return domain_hdl->zoom_ni_loc.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = domain_hdl->zoom_ni_loc.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -862,9 +897,10 @@ extern "C"
   
   bool cxios_is_defined_domain_zoom_nj(domain_Ptr domain_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return domain_hdl->zoom_nj.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = domain_hdl->zoom_nj.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -884,9 +920,10 @@ extern "C"
   
   bool cxios_is_defined_domain_zoom_nj_loc(domain_Ptr domain_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return domain_hdl->zoom_nj_loc.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = domain_hdl->zoom_nj_loc.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   

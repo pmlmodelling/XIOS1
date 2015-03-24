@@ -36,9 +36,10 @@ extern "C"
   
   bool cxios_is_defined_context_calendar_type(context_Ptr context_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return context_hdl->calendar_type.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = context_hdl->calendar_type.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -63,9 +64,10 @@ extern "C"
   
   bool cxios_is_defined_context_output_dir(context_Ptr context_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return context_hdl->output_dir.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = context_hdl->output_dir.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -90,9 +92,10 @@ extern "C"
   
   bool cxios_is_defined_context_start_date(context_Ptr context_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return context_hdl->start_date.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = context_hdl->start_date.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -117,9 +120,10 @@ extern "C"
   
   bool cxios_is_defined_context_time_origin(context_Ptr context_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return context_hdl->time_origin.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = context_hdl->time_origin.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -144,9 +148,10 @@ extern "C"
   
   bool cxios_is_defined_context_timestep(context_Ptr context_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return context_hdl->timestep.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = context_hdl->timestep.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   

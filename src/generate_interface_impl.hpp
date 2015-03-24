@@ -40,9 +40,10 @@ namespace xios
   {
     oss<<"bool cxios_is_defined_"<<className<<"_"<<name<<"("<<className<<"_Ptr "<<className<<"_hdl )"<<iendl ;
     oss<<"{"<<iendl ;
-    oss<<"   CTimer::get(\"XIOS\").resume();"<<iendl ;
-    oss<<"  return "<<className<<"_hdl->"<<name<<".hasInheritedValue();"<<iendl ;
-    oss<<"   CTimer::get(\"XIOS\").suspend();"<<iendl ;
+    oss<<"  CTimer::get(\"XIOS\").resume();"<<iendl ;
+    oss<<"  bool isDefined = "<<className<<"_hdl->"<<name<<".hasInheritedValue();"<<iendl ;
+    oss<<"  CTimer::get(\"XIOS\").suspend();"<<iendl ;
+    oss<<"  return isDefined;"<<iendl ;
     oss<<"}"<<iendl ;
     oss<<iendl ;
   }

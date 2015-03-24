@@ -36,9 +36,10 @@ extern "C"
   
   bool cxios_is_defined_variable_name(variable_Ptr variable_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return variable_hdl->name.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = variable_hdl->name.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -63,9 +64,10 @@ extern "C"
   
   bool cxios_is_defined_variable_type(variable_Ptr variable_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return variable_hdl->type.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = variable_hdl->type.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   

@@ -31,9 +31,10 @@ extern "C"
   
   bool cxios_is_defined_field_add_offset(field_Ptr field_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return field_hdl->add_offset.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = field_hdl->add_offset.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -58,9 +59,10 @@ extern "C"
   
   bool cxios_is_defined_field_axis_ref(field_Ptr field_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return field_hdl->axis_ref.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = field_hdl->axis_ref.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -80,9 +82,10 @@ extern "C"
   
   bool cxios_is_defined_field_default_value(field_Ptr field_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return field_hdl->default_value.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = field_hdl->default_value.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -102,9 +105,10 @@ extern "C"
   
   bool cxios_is_defined_field_detect_missing_value(field_Ptr field_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return field_hdl->detect_missing_value.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = field_hdl->detect_missing_value.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -129,9 +133,10 @@ extern "C"
   
   bool cxios_is_defined_field_domain_ref(field_Ptr field_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return field_hdl->domain_ref.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = field_hdl->domain_ref.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -151,9 +156,10 @@ extern "C"
   
   bool cxios_is_defined_field_enabled(field_Ptr field_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return field_hdl->enabled.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = field_hdl->enabled.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -178,9 +184,10 @@ extern "C"
   
   bool cxios_is_defined_field_field_ref(field_Ptr field_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return field_hdl->field_ref.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = field_hdl->field_ref.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -205,9 +212,10 @@ extern "C"
   
   bool cxios_is_defined_field_freq_offset(field_Ptr field_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return field_hdl->freq_offset.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = field_hdl->freq_offset.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -232,9 +240,10 @@ extern "C"
   
   bool cxios_is_defined_field_freq_op(field_Ptr field_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return field_hdl->freq_op.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = field_hdl->freq_op.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -259,9 +268,10 @@ extern "C"
   
   bool cxios_is_defined_field_grid_ref(field_Ptr field_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return field_hdl->grid_ref.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = field_hdl->grid_ref.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -281,9 +291,10 @@ extern "C"
   
   bool cxios_is_defined_field_level(field_Ptr field_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return field_hdl->level.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = field_hdl->level.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -308,9 +319,10 @@ extern "C"
   
   bool cxios_is_defined_field_long_name(field_Ptr field_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return field_hdl->long_name.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = field_hdl->long_name.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -335,9 +347,10 @@ extern "C"
   
   bool cxios_is_defined_field_name(field_Ptr field_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return field_hdl->name.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = field_hdl->name.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -362,9 +375,10 @@ extern "C"
   
   bool cxios_is_defined_field_operation(field_Ptr field_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return field_hdl->operation.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = field_hdl->operation.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -384,9 +398,10 @@ extern "C"
   
   bool cxios_is_defined_field_prec(field_Ptr field_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return field_hdl->prec.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = field_hdl->prec.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -406,9 +421,10 @@ extern "C"
   
   bool cxios_is_defined_field_scale_factor(field_Ptr field_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return field_hdl->scale_factor.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = field_hdl->scale_factor.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -433,9 +449,10 @@ extern "C"
   
   bool cxios_is_defined_field_standard_name(field_Ptr field_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return field_hdl->standard_name.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = field_hdl->standard_name.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -460,9 +477,10 @@ extern "C"
   
   bool cxios_is_defined_field_unit(field_Ptr field_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return field_hdl->unit.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = field_hdl->unit.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -482,9 +500,10 @@ extern "C"
   
   bool cxios_is_defined_field_valid_max(field_Ptr field_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return field_hdl->valid_max.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = field_hdl->valid_max.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -504,9 +523,10 @@ extern "C"
   
   bool cxios_is_defined_field_valid_min(field_Ptr field_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return field_hdl->valid_min.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = field_hdl->valid_min.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   

@@ -36,9 +36,10 @@ extern "C"
   
   bool cxios_is_defined_variablegroup_group_ref(variablegroup_Ptr variablegroup_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return variablegroup_hdl->group_ref.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = variablegroup_hdl->group_ref.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -63,9 +64,10 @@ extern "C"
   
   bool cxios_is_defined_variablegroup_name(variablegroup_Ptr variablegroup_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return variablegroup_hdl->name.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = variablegroup_hdl->name.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -90,9 +92,10 @@ extern "C"
   
   bool cxios_is_defined_variablegroup_type(variablegroup_Ptr variablegroup_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return variablegroup_hdl->type.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = variablegroup_hdl->type.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   

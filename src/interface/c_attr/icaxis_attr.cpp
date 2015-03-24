@@ -36,9 +36,10 @@ extern "C"
   
   bool cxios_is_defined_axis_long_name(axis_Ptr axis_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return axis_hdl->long_name.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = axis_hdl->long_name.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -63,9 +64,10 @@ extern "C"
   
   bool cxios_is_defined_axis_name(axis_Ptr axis_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return axis_hdl->name.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = axis_hdl->name.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -90,9 +92,10 @@ extern "C"
   
   bool cxios_is_defined_axis_positive(axis_Ptr axis_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return axis_hdl->positive.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = axis_hdl->positive.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -112,9 +115,10 @@ extern "C"
   
   bool cxios_is_defined_axis_size(axis_Ptr axis_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return axis_hdl->size.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = axis_hdl->size.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -139,9 +143,10 @@ extern "C"
   
   bool cxios_is_defined_axis_standard_name(axis_Ptr axis_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return axis_hdl->standard_name.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = axis_hdl->standard_name.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -166,9 +171,10 @@ extern "C"
   
   bool cxios_is_defined_axis_unit(axis_Ptr axis_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return axis_hdl->unit.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = axis_hdl->unit.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -192,9 +198,10 @@ extern "C"
   
   bool cxios_is_defined_axis_value(axis_Ptr axis_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return axis_hdl->value.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = axis_hdl->value.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -214,9 +221,10 @@ extern "C"
   
   bool cxios_is_defined_axis_zoom_begin(axis_Ptr axis_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return axis_hdl->zoom_begin.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = axis_hdl->zoom_begin.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -236,9 +244,10 @@ extern "C"
   
   bool cxios_is_defined_axis_zoom_end(axis_Ptr axis_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return axis_hdl->zoom_end.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = axis_hdl->zoom_end.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -258,9 +267,10 @@ extern "C"
   
   bool cxios_is_defined_axis_zoom_size(axis_Ptr axis_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return axis_hdl->zoom_size.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = axis_hdl->zoom_size.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   

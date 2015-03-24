@@ -36,9 +36,10 @@ extern "C"
   
   bool cxios_is_defined_file_description(file_Ptr file_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return file_hdl->description.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = file_hdl->description.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -58,9 +59,10 @@ extern "C"
   
   bool cxios_is_defined_file_enabled(file_Ptr file_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return file_hdl->enabled.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = file_hdl->enabled.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -80,9 +82,10 @@ extern "C"
   
   bool cxios_is_defined_file_min_digits(file_Ptr file_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return file_hdl->min_digits.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = file_hdl->min_digits.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -107,9 +110,10 @@ extern "C"
   
   bool cxios_is_defined_file_name(file_Ptr file_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return file_hdl->name.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = file_hdl->name.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -134,9 +138,10 @@ extern "C"
   
   bool cxios_is_defined_file_name_suffix(file_Ptr file_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return file_hdl->name_suffix.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = file_hdl->name_suffix.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -161,9 +166,10 @@ extern "C"
   
   bool cxios_is_defined_file_output_freq(file_Ptr file_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return file_hdl->output_freq.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = file_hdl->output_freq.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -183,9 +189,10 @@ extern "C"
   
   bool cxios_is_defined_file_output_level(file_Ptr file_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return file_hdl->output_level.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = file_hdl->output_level.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -210,9 +217,10 @@ extern "C"
   
   bool cxios_is_defined_file_par_access(file_Ptr file_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return file_hdl->par_access.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = file_hdl->par_access.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -237,9 +245,10 @@ extern "C"
   
   bool cxios_is_defined_file_split_freq(file_Ptr file_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return file_hdl->split_freq.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = file_hdl->split_freq.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -264,9 +273,10 @@ extern "C"
   
   bool cxios_is_defined_file_split_freq_format(file_Ptr file_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return file_hdl->split_freq_format.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = file_hdl->split_freq_format.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -291,9 +301,10 @@ extern "C"
   
   bool cxios_is_defined_file_sync_freq(file_Ptr file_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return file_hdl->sync_freq.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = file_hdl->sync_freq.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -318,9 +329,10 @@ extern "C"
   
   bool cxios_is_defined_file_type(file_Ptr file_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return file_hdl->type.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = file_hdl->type.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   

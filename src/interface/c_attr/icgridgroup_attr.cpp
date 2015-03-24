@@ -36,9 +36,10 @@ extern "C"
   
   bool cxios_is_defined_gridgroup_axis_ref(gridgroup_Ptr gridgroup_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return gridgroup_hdl->axis_ref.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = gridgroup_hdl->axis_ref.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -63,9 +64,10 @@ extern "C"
   
   bool cxios_is_defined_gridgroup_description(gridgroup_Ptr gridgroup_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return gridgroup_hdl->description.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = gridgroup_hdl->description.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -90,9 +92,10 @@ extern "C"
   
   bool cxios_is_defined_gridgroup_domain_ref(gridgroup_Ptr gridgroup_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return gridgroup_hdl->domain_ref.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = gridgroup_hdl->domain_ref.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -117,9 +120,10 @@ extern "C"
   
   bool cxios_is_defined_gridgroup_group_ref(gridgroup_Ptr gridgroup_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return gridgroup_hdl->group_ref.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = gridgroup_hdl->group_ref.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -143,9 +147,10 @@ extern "C"
   
   bool cxios_is_defined_gridgroup_mask(gridgroup_Ptr gridgroup_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return gridgroup_hdl->mask.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = gridgroup_hdl->mask.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
@@ -170,9 +175,10 @@ extern "C"
   
   bool cxios_is_defined_gridgroup_name(gridgroup_Ptr gridgroup_hdl )
   {
-     CTimer::get("XIOS").resume();
-    return gridgroup_hdl->name.hasInheritedValue();
-     CTimer::get("XIOS").suspend();
+    CTimer::get("XIOS").resume();
+    bool isDefined = gridgroup_hdl->name.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
   }
   
   
