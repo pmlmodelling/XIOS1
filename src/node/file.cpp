@@ -270,7 +270,7 @@ namespace xios {
              else splitFormat="%y";
            }
            else splitFormat=split_freq_format ;
-           oss<<"_"<<lastSplit->getStr(splitFormat)<<"-"<< (*lastSplit+(splitFreq-1*Second)).getStr(splitFormat);
+           oss<<"_"<<lastSplit->getStr(splitFormat)<<"-"<< (*lastSplit + splitFreq - 1 * Second).getStr(splitFormat);
          }
            
          bool multifile=true ;
