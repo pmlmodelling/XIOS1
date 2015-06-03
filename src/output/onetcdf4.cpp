@@ -12,8 +12,8 @@ namespace xios
       CONetCDF4::CONetCDF4
          (const StdString & filename, bool exist, const MPI_Comm * comm, bool multifile)
             : path()
+            , wmpi(false)
       {
-         this->wmpi = (comm != NULL) && !multifile;
          this->initialize(filename, exist, comm,multifile);
       }
 
@@ -30,23 +30,29 @@ namespace xios
       void CONetCDF4::initialize
          (const StdString & filename, bool exist, const MPI_Comm * comm, bool multifile)
       {
+         // Don't use parallel mode if there is only one process
+         if (comm)
+         {
+            int commSize = 0;
+            MPI_Comm_size(*comm, &commSize);
+            if (commSize <= 1)
+               comm = NULL;
+         }
+         wmpi = comm && !multifile;
+
          if (!exist)
          {
-            if (comm != NULL)
-            {
-               if (!multifile) (CNetCdfInterface::createPar(filename, NC_NETCDF4|NC_MPIIO, *comm, MPI_INFO_NULL, (this->ncidp)));
-               else (CNetCdfInterface::create(filename, NC_NETCDF4, this->ncidp));
-            }
-            else (CNetCdfInterface::create(filename, NC_NETCDF4, this->ncidp));
+            if (wmpi)
+               CNetCdfInterface::createPar(filename, NC_NETCDF4|NC_MPIIO, *comm, MPI_INFO_NULL, this->ncidp);
+            else
+               CNetCdfInterface::create(filename, NC_NETCDF4, this->ncidp);
          }
          else
          {
-            if (comm != NULL)
-            {
-               if (!multifile) (CNetCdfInterface::openPar(filename, NC_NETCDF4|NC_MPIIO, *comm, MPI_INFO_NULL, this->ncidp));
-               else (CNetCdfInterface::open(filename, NC_NETCDF4, this->ncidp));
-            }
-            else  (CNetCdfInterface::open(filename, NC_NETCDF4, this->ncidp));
+            if (wmpi)
+               CNetCdfInterface::openPar(filename, NC_NETCDF4|NC_MPIIO, *comm, MPI_INFO_NULL, this->ncidp);
+            else
+               CNetCdfInterface::open(filename, NC_NETCDF4, this->ncidp);
          }
       }
 
