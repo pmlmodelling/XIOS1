@@ -524,6 +524,32 @@ int CNetCdfInterface::defVarChunking(int ncid, int varId, int storage, StdSize c
 }
 
 /*!
+This function sets the compression level to the specified variable
+\param [in] ncid Groud id (or file id)
+\param [in] varId Id of the variable
+\param [in] compressionLevel The compression level from 0 to 9 (0 disables the compression, 9 is the higher compression)
+\return Status code
+*/
+int CNetCdfInterface::defVarDeflate(int ncid, int varId, int compressionLevel)
+{
+  int status = nc_def_var_deflate(ncid, varId, false, (compressionLevel > 0), compressionLevel);
+  if (NC_NOERR != status)
+  {
+    StdString errormsg(nc_strerror(status));
+    StdStringStream sstr;
+
+    sstr << "Error in calling function " << "nc_def_var_deflate(ncid, varId, false, (compressionLevel > 0), compressionLevel)" << std::endl;
+    sstr << errormsg << std::endl;
+    sstr << "Unable to set the compression level of the variable with id: " << varId
+         << " and compression level: " << compressionLevel << std::endl;
+    StdString e = sstr.str();
+    throw CNetCdfException(e);
+  }
+
+  return status;
+}
+
+/*!
 This function makes a request to netcdf with a ncid, to set the fill parameters for a variable,
 given variable id and type of fill
 \param [in] ncid Id groupd(or File Id)

@@ -287,6 +287,15 @@ namespace xios
 
       //---------------------------------------------------------------
 
+      void CONetCDF4::setCompressionLevel(const StdString& varname, int compressionLevel)
+      {
+         int grpid = this->getCurrentGroup();
+         int varid = this->getVariable(varname);
+         CNetCdfInterface::defVarDeflate(grpid, varid, compressionLevel);
+      }
+
+      //---------------------------------------------------------------
+
       template <>
          void CONetCDF4::addAttribute
             (const StdString & name, const StdString & value, const StdString * varname )
@@ -413,14 +422,14 @@ namespace xios
          if (iddims.begin()->compare(this->getUnlimitedDimensionName()) == 0)
          {
             sstart.push_back(record);
-            scount.push_back(1); 
+            scount.push_back(1);
             if ((start == NULL) &&
                 (count == NULL)) i++;
             it++;
          }
 
          for (;it != end; it++)
-         { 
+         {
             if ((start != NULL) && (count != NULL))
             {
                sstart.push_back((*start)[i]);
