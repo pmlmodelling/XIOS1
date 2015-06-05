@@ -16,6 +16,29 @@ extern "C"
 {
   typedef xios::CFile*  file_Ptr;
   
+  void cxios_set_file_compression_level(file_Ptr file_hdl, int compression_level)
+  {
+     CTimer::get("XIOS").resume();
+    file_hdl->compression_level.setValue(compression_level);
+    file_hdl->sendAttributToServer(file_hdl->compression_level);
+     CTimer::get("XIOS").suspend();
+  }
+  
+  void cxios_get_file_compression_level(file_Ptr file_hdl, int* compression_level)
+  {
+    *compression_level = file_hdl->compression_level.getInheritedValue();
+  }
+  
+  bool cxios_is_defined_file_compression_level(file_Ptr file_hdl )
+  {
+    CTimer::get("XIOS").resume();
+    bool isDefined = file_hdl->compression_level.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
+  }
+  
+  
+  
   void cxios_set_file_description(file_Ptr file_hdl, const char * description, int description_size)
   {
     std::string description_str;

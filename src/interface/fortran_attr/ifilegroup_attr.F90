@@ -11,12 +11,13 @@ MODULE ifilegroup_attr
 CONTAINS
   
   SUBROUTINE xios(set_filegroup_attr)  &
-    ( filegroup_id, description, enabled, group_ref, min_digits, name, name_suffix, output_freq  &
-    , output_level, par_access, split_freq, split_freq_format, sync_freq, type )
+    ( filegroup_id, compression_level, description, enabled, group_ref, min_digits, name, name_suffix  &
+    , output_freq, output_level, par_access, split_freq, split_freq_format, sync_freq, type )
     
     IMPLICIT NONE
       TYPE(txios(filegroup))  :: filegroup_hdl
       CHARACTER(LEN=*), INTENT(IN) ::filegroup_id
+      INTEGER  , OPTIONAL, INTENT(IN) :: compression_level
       CHARACTER(len = *) , OPTIONAL, INTENT(IN) :: description
       LOGICAL  , OPTIONAL, INTENT(IN) :: enabled
       LOGICAL (KIND=C_BOOL) :: enabled_tmp
@@ -34,17 +35,18 @@ CONTAINS
       
       CALL xios(get_filegroup_handle)(filegroup_id,filegroup_hdl)
       CALL xios(set_filegroup_attr_hdl_)   &
-      ( filegroup_hdl, description, enabled, group_ref, min_digits, name, name_suffix, output_freq  &
-      , output_level, par_access, split_freq, split_freq_format, sync_freq, type )
+      ( filegroup_hdl, compression_level, description, enabled, group_ref, min_digits, name, name_suffix  &
+      , output_freq, output_level, par_access, split_freq, split_freq_format, sync_freq, type )
     
   END SUBROUTINE xios(set_filegroup_attr)
   
   SUBROUTINE xios(set_filegroup_attr_hdl)  &
-    ( filegroup_hdl, description, enabled, group_ref, min_digits, name, name_suffix, output_freq  &
-    , output_level, par_access, split_freq, split_freq_format, sync_freq, type )
+    ( filegroup_hdl, compression_level, description, enabled, group_ref, min_digits, name, name_suffix  &
+    , output_freq, output_level, par_access, split_freq, split_freq_format, sync_freq, type )
     
     IMPLICIT NONE
       TYPE(txios(filegroup)) , INTENT(IN) :: filegroup_hdl
+      INTEGER  , OPTIONAL, INTENT(IN) :: compression_level
       CHARACTER(len = *) , OPTIONAL, INTENT(IN) :: description
       LOGICAL  , OPTIONAL, INTENT(IN) :: enabled
       LOGICAL (KIND=C_BOOL) :: enabled_tmp
@@ -61,17 +63,19 @@ CONTAINS
       CHARACTER(len = *) , OPTIONAL, INTENT(IN) :: type
       
       CALL xios(set_filegroup_attr_hdl_)  &
-      ( filegroup_hdl, description, enabled, group_ref, min_digits, name, name_suffix, output_freq  &
-      , output_level, par_access, split_freq, split_freq_format, sync_freq, type )
+      ( filegroup_hdl, compression_level, description, enabled, group_ref, min_digits, name, name_suffix  &
+      , output_freq, output_level, par_access, split_freq, split_freq_format, sync_freq, type )
     
   END SUBROUTINE xios(set_filegroup_attr_hdl)
   
   SUBROUTINE xios(set_filegroup_attr_hdl_)   &
-    ( filegroup_hdl, description_, enabled_, group_ref_, min_digits_, name_, name_suffix_, output_freq_  &
-    , output_level_, par_access_, split_freq_, split_freq_format_, sync_freq_, type_ )
+    ( filegroup_hdl, compression_level_, description_, enabled_, group_ref_, min_digits_, name_  &
+    , name_suffix_, output_freq_, output_level_, par_access_, split_freq_, split_freq_format_, sync_freq_  &
+    , type_ )
     
     IMPLICIT NONE
       TYPE(txios(filegroup)) , INTENT(IN) :: filegroup_hdl
+      INTEGER  , OPTIONAL, INTENT(IN) :: compression_level_
       CHARACTER(len = *) , OPTIONAL, INTENT(IN) :: description_
       LOGICAL  , OPTIONAL, INTENT(IN) :: enabled_
       LOGICAL (KIND=C_BOOL) :: enabled__tmp
@@ -86,6 +90,10 @@ CONTAINS
       CHARACTER(len = *) , OPTIONAL, INTENT(IN) :: split_freq_format_
       CHARACTER(len = *) , OPTIONAL, INTENT(IN) :: sync_freq_
       CHARACTER(len = *) , OPTIONAL, INTENT(IN) :: type_
+      
+      IF (PRESENT(compression_level_)) THEN
+        CALL cxios_set_filegroup_compression_level(filegroup_hdl%daddr, compression_level_)
+      ENDIF
       
       IF (PRESENT(description_)) THEN
         CALL cxios_set_filegroup_description(filegroup_hdl%daddr, description_, len(description_))
@@ -145,12 +153,13 @@ CONTAINS
   END SUBROUTINE xios(set_filegroup_attr_hdl_)
   
   SUBROUTINE xios(get_filegroup_attr)  &
-    ( filegroup_id, description, enabled, group_ref, min_digits, name, name_suffix, output_freq  &
-    , output_level, par_access, split_freq, split_freq_format, sync_freq, type )
+    ( filegroup_id, compression_level, description, enabled, group_ref, min_digits, name, name_suffix  &
+    , output_freq, output_level, par_access, split_freq, split_freq_format, sync_freq, type )
     
     IMPLICIT NONE
       TYPE(txios(filegroup))  :: filegroup_hdl
       CHARACTER(LEN=*), INTENT(IN) ::filegroup_id
+      INTEGER  , OPTIONAL, INTENT(OUT) :: compression_level
       CHARACTER(len = *) , OPTIONAL, INTENT(OUT) :: description
       LOGICAL  , OPTIONAL, INTENT(OUT) :: enabled
       LOGICAL (KIND=C_BOOL) :: enabled_tmp
@@ -168,17 +177,18 @@ CONTAINS
       
       CALL xios(get_filegroup_handle)(filegroup_id,filegroup_hdl)
       CALL xios(get_filegroup_attr_hdl_)   &
-      ( filegroup_hdl, description, enabled, group_ref, min_digits, name, name_suffix, output_freq  &
-      , output_level, par_access, split_freq, split_freq_format, sync_freq, type )
+      ( filegroup_hdl, compression_level, description, enabled, group_ref, min_digits, name, name_suffix  &
+      , output_freq, output_level, par_access, split_freq, split_freq_format, sync_freq, type )
     
   END SUBROUTINE xios(get_filegroup_attr)
   
   SUBROUTINE xios(get_filegroup_attr_hdl)  &
-    ( filegroup_hdl, description, enabled, group_ref, min_digits, name, name_suffix, output_freq  &
-    , output_level, par_access, split_freq, split_freq_format, sync_freq, type )
+    ( filegroup_hdl, compression_level, description, enabled, group_ref, min_digits, name, name_suffix  &
+    , output_freq, output_level, par_access, split_freq, split_freq_format, sync_freq, type )
     
     IMPLICIT NONE
       TYPE(txios(filegroup)) , INTENT(IN) :: filegroup_hdl
+      INTEGER  , OPTIONAL, INTENT(OUT) :: compression_level
       CHARACTER(len = *) , OPTIONAL, INTENT(OUT) :: description
       LOGICAL  , OPTIONAL, INTENT(OUT) :: enabled
       LOGICAL (KIND=C_BOOL) :: enabled_tmp
@@ -195,17 +205,19 @@ CONTAINS
       CHARACTER(len = *) , OPTIONAL, INTENT(OUT) :: type
       
       CALL xios(get_filegroup_attr_hdl_)  &
-      ( filegroup_hdl, description, enabled, group_ref, min_digits, name, name_suffix, output_freq  &
-      , output_level, par_access, split_freq, split_freq_format, sync_freq, type )
+      ( filegroup_hdl, compression_level, description, enabled, group_ref, min_digits, name, name_suffix  &
+      , output_freq, output_level, par_access, split_freq, split_freq_format, sync_freq, type )
     
   END SUBROUTINE xios(get_filegroup_attr_hdl)
   
   SUBROUTINE xios(get_filegroup_attr_hdl_)   &
-    ( filegroup_hdl, description_, enabled_, group_ref_, min_digits_, name_, name_suffix_, output_freq_  &
-    , output_level_, par_access_, split_freq_, split_freq_format_, sync_freq_, type_ )
+    ( filegroup_hdl, compression_level_, description_, enabled_, group_ref_, min_digits_, name_  &
+    , name_suffix_, output_freq_, output_level_, par_access_, split_freq_, split_freq_format_, sync_freq_  &
+    , type_ )
     
     IMPLICIT NONE
       TYPE(txios(filegroup)) , INTENT(IN) :: filegroup_hdl
+      INTEGER  , OPTIONAL, INTENT(OUT) :: compression_level_
       CHARACTER(len = *) , OPTIONAL, INTENT(OUT) :: description_
       LOGICAL  , OPTIONAL, INTENT(OUT) :: enabled_
       LOGICAL (KIND=C_BOOL) :: enabled__tmp
@@ -220,6 +232,10 @@ CONTAINS
       CHARACTER(len = *) , OPTIONAL, INTENT(OUT) :: split_freq_format_
       CHARACTER(len = *) , OPTIONAL, INTENT(OUT) :: sync_freq_
       CHARACTER(len = *) , OPTIONAL, INTENT(OUT) :: type_
+      
+      IF (PRESENT(compression_level_)) THEN
+        CALL cxios_get_filegroup_compression_level(filegroup_hdl%daddr, compression_level_)
+      ENDIF
       
       IF (PRESENT(description_)) THEN
         CALL cxios_get_filegroup_description(filegroup_hdl%daddr, description_, len(description_))
@@ -279,12 +295,14 @@ CONTAINS
   END SUBROUTINE xios(get_filegroup_attr_hdl_)
   
   SUBROUTINE xios(is_defined_filegroup_attr)  &
-    ( filegroup_id, description, enabled, group_ref, min_digits, name, name_suffix, output_freq  &
-    , output_level, par_access, split_freq, split_freq_format, sync_freq, type )
+    ( filegroup_id, compression_level, description, enabled, group_ref, min_digits, name, name_suffix  &
+    , output_freq, output_level, par_access, split_freq, split_freq_format, sync_freq, type )
     
     IMPLICIT NONE
       TYPE(txios(filegroup))  :: filegroup_hdl
       CHARACTER(LEN=*), INTENT(IN) ::filegroup_id
+      LOGICAL, OPTIONAL, INTENT(OUT) :: compression_level
+      LOGICAL(KIND=C_BOOL) :: compression_level_tmp
       LOGICAL, OPTIONAL, INTENT(OUT) :: description
       LOGICAL(KIND=C_BOOL) :: description_tmp
       LOGICAL, OPTIONAL, INTENT(OUT) :: enabled
@@ -314,17 +332,19 @@ CONTAINS
       
       CALL xios(get_filegroup_handle)(filegroup_id,filegroup_hdl)
       CALL xios(is_defined_filegroup_attr_hdl_)   &
-      ( filegroup_hdl, description, enabled, group_ref, min_digits, name, name_suffix, output_freq  &
-      , output_level, par_access, split_freq, split_freq_format, sync_freq, type )
+      ( filegroup_hdl, compression_level, description, enabled, group_ref, min_digits, name, name_suffix  &
+      , output_freq, output_level, par_access, split_freq, split_freq_format, sync_freq, type )
     
   END SUBROUTINE xios(is_defined_filegroup_attr)
   
   SUBROUTINE xios(is_defined_filegroup_attr_hdl)  &
-    ( filegroup_hdl, description, enabled, group_ref, min_digits, name, name_suffix, output_freq  &
-    , output_level, par_access, split_freq, split_freq_format, sync_freq, type )
+    ( filegroup_hdl, compression_level, description, enabled, group_ref, min_digits, name, name_suffix  &
+    , output_freq, output_level, par_access, split_freq, split_freq_format, sync_freq, type )
     
     IMPLICIT NONE
       TYPE(txios(filegroup)) , INTENT(IN) :: filegroup_hdl
+      LOGICAL, OPTIONAL, INTENT(OUT) :: compression_level
+      LOGICAL(KIND=C_BOOL) :: compression_level_tmp
       LOGICAL, OPTIONAL, INTENT(OUT) :: description
       LOGICAL(KIND=C_BOOL) :: description_tmp
       LOGICAL, OPTIONAL, INTENT(OUT) :: enabled
@@ -353,17 +373,20 @@ CONTAINS
       LOGICAL(KIND=C_BOOL) :: type_tmp
       
       CALL xios(is_defined_filegroup_attr_hdl_)  &
-      ( filegroup_hdl, description, enabled, group_ref, min_digits, name, name_suffix, output_freq  &
-      , output_level, par_access, split_freq, split_freq_format, sync_freq, type )
+      ( filegroup_hdl, compression_level, description, enabled, group_ref, min_digits, name, name_suffix  &
+      , output_freq, output_level, par_access, split_freq, split_freq_format, sync_freq, type )
     
   END SUBROUTINE xios(is_defined_filegroup_attr_hdl)
   
   SUBROUTINE xios(is_defined_filegroup_attr_hdl_)   &
-    ( filegroup_hdl, description_, enabled_, group_ref_, min_digits_, name_, name_suffix_, output_freq_  &
-    , output_level_, par_access_, split_freq_, split_freq_format_, sync_freq_, type_ )
+    ( filegroup_hdl, compression_level_, description_, enabled_, group_ref_, min_digits_, name_  &
+    , name_suffix_, output_freq_, output_level_, par_access_, split_freq_, split_freq_format_, sync_freq_  &
+    , type_ )
     
     IMPLICIT NONE
       TYPE(txios(filegroup)) , INTENT(IN) :: filegroup_hdl
+      LOGICAL, OPTIONAL, INTENT(OUT) :: compression_level_
+      LOGICAL(KIND=C_BOOL) :: compression_level__tmp
       LOGICAL, OPTIONAL, INTENT(OUT) :: description_
       LOGICAL(KIND=C_BOOL) :: description__tmp
       LOGICAL, OPTIONAL, INTENT(OUT) :: enabled_
@@ -390,6 +413,11 @@ CONTAINS
       LOGICAL(KIND=C_BOOL) :: sync_freq__tmp
       LOGICAL, OPTIONAL, INTENT(OUT) :: type_
       LOGICAL(KIND=C_BOOL) :: type__tmp
+      
+      IF (PRESENT(compression_level_)) THEN
+        compression_level__tmp=cxios_is_defined_filegroup_compression_level(filegroup_hdl%daddr)
+        compression_level_=compression_level__tmp
+      ENDIF
       
       IF (PRESENT(description_)) THEN
         description__tmp=cxios_is_defined_filegroup_description(filegroup_hdl%daddr)
