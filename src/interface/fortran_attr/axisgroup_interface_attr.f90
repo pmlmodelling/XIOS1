@@ -8,6 +8,29 @@ MODULE axisgroup_interface_attr
   INTERFACE ! Do not call directly / interface FORTRAN 2003 <-> C99
     
     
+    SUBROUTINE cxios_set_axisgroup_bounds(axisgroup_hdl, bounds, extent1, extent2) BIND(C)
+      USE ISO_C_BINDING
+      INTEGER (kind = C_INTPTR_T), VALUE       :: axisgroup_hdl
+      REAL (KIND=C_DOUBLE)     , DIMENSION(*) :: bounds
+      INTEGER (kind = C_INT), VALUE  :: extent1
+      INTEGER (kind = C_INT), VALUE  :: extent2
+    END SUBROUTINE cxios_set_axisgroup_bounds
+    
+    SUBROUTINE cxios_get_axisgroup_bounds(axisgroup_hdl, bounds, extent1, extent2) BIND(C)
+      USE ISO_C_BINDING
+      INTEGER (kind = C_INTPTR_T), VALUE       :: axisgroup_hdl
+      REAL (KIND=C_DOUBLE)     , DIMENSION(*) :: bounds
+      INTEGER (kind = C_INT), VALUE  :: extent1
+      INTEGER (kind = C_INT), VALUE  :: extent2
+    END SUBROUTINE cxios_get_axisgroup_bounds
+    
+    FUNCTION cxios_is_defined_axisgroup_bounds(axisgroup_hdl ) BIND(C)
+      USE ISO_C_BINDING
+      LOGICAL(kind=C_BOOL) :: cxios_is_defined_axisgroup_bounds
+      INTEGER (kind = C_INTPTR_T), VALUE :: axisgroup_hdl
+    END FUNCTION cxios_is_defined_axisgroup_bounds
+    
+    
     SUBROUTINE cxios_set_axisgroup_group_ref(axisgroup_hdl, group_ref, group_ref_size) BIND(C)
       USE ISO_C_BINDING
       INTEGER (kind = C_INTPTR_T), VALUE :: axisgroup_hdl

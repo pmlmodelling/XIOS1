@@ -79,6 +79,15 @@ namespace xios {
          ERROR("CAxis::checkAttributes(void)",
                << "The array \'value\' of axis [ id = '" << getId() << "' , context = '" << CObjectFactory::GetCurrentContextId() << "' ] has a different size that the one defined by the \'size\' attribute");
 
+      if (!bounds.isEmpty())
+      {
+        if (bounds.extent(0) != size || bounds.extent(1) != 2)
+            ERROR("CAxis::checkAttributes(void)",
+                  << "The bounds array of the axis [ id = '" << getId() << "' , context = '" << CObjectFactory::GetCurrentContextId() << "' ] must be of dimension axis size x 2" << endl
+                  << "Axis size is " << size << endl
+                  << "Bounds size is "<< bounds.extent(0) << " x " << bounds.extent(1));
+      }
+
       this->isChecked = true;
    }
 

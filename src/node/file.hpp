@@ -129,7 +129,7 @@ namespace xios {
          CDuration syncFreq ;
          CDuration splitFreq ;
          CDuration outputFreq ;
-         int nbDomain ;
+         int nbAxis, nbDomains;
          bool isOpen ;
          MPI_Comm fileComm ;
       private :

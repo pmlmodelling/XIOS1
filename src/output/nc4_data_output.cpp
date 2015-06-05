@@ -481,8 +481,8 @@ namespace xios
       {
          if (axis->IsWritten(this->filename)) return;
          axis->checkAttributes();
-         StdSize zoom_size=axis->zoom_size.getValue() ;
-         StdSize zoom_begin=axis->zoom_begin.getValue()-1 ;
+         int zoom_size = axis->zoom_size.getValue();
+         int zoom_begin = axis->zoom_begin.getValue() - 1;
 
 
          std::vector<StdString> dims;
@@ -515,15 +515,34 @@ namespace xios
                     SuperClassWriter::addAttribute
                        ("units", axis->unit.getValue(), &axisid);
 
-                if (!axis->positive.isEmpty())
-                  if (axis->positive==CAxis::positive_attr::up) SuperClassWriter::addAttribute("positive", string("up"), &axisid);
-                  else   SuperClassWriter::addAttribute("positive", string("down"), &axisid);
+                 if (!axis->positive.isEmpty())
+                   if (axis->positive==CAxis::positive_attr::up) SuperClassWriter::addAttribute("positive", string("up"), &axisid);
+                   else SuperClassWriter::addAttribute("positive", string("down"), &axisid);
+
+                 StdString axisBoundsId = axisid + "_bounds";
+                 if (!axis->bounds.isEmpty())
+                 {
+                   dims.push_back("axis_nbounds");
+                   SuperClassWriter::addVariable(axisBoundsId, NC_FLOAT, dims);
+                   SuperClassWriter::addAttribute("bounds", axisBoundsId, &axisid);
+                 }
 
                  SuperClassWriter::definition_end();
 
-                 CArray<double,1> axis_value(zoom_size) ;
-                 for(StdSize i = 0 ; i < zoom_size ; i++) axis_value(i)=axis->value(i+zoom_begin) ;
+                 CArray<double,1> axis_value(zoom_size);
+                 for(int i = 0 ; i < zoom_size; i++) axis_value(i) = axis->value(i+zoom_begin);
                  SuperClassWriter::writeData(axis_value, axisid, isCollective, 0);
+
+                 if (!axis->bounds.isEmpty())
+                 {
+                   CArray<double,2> axisBounds(zoom_size, 2);
+                   for (int i = 0; i < zoom_size; i++)
+                   {
+                     axisBounds(i, 0) = axis->bounds(i + zoom_begin, 0);
+                     axisBounds(i, 1) = axis->bounds(i + zoom_begin, 1);
+                   }
+                   SuperClassWriter::writeData(axisBounds, axisBoundsId, isCollective, 0);
+                 }
 
                  SuperClassWriter::definition_start();
 
@@ -778,12 +797,18 @@ namespace xios
          StdString description = (!file->description.isEmpty())
                                ? file->description.getValue()
                                : StdString("Created by xios");
+
+         singleDomain = (file->nbDomains == 1);
+
          try
          {
            this->writeFileAttributes(filename, description,
-                                     StdString ("CF-1.1"),
+                                     StdString("CF-1.1"),
                                      StdString("An IPSL model"),
                                      this->getTimeStamp());
+
+           if (file->nbAxis >= 1)
+             SuperClassWriter::addDimension("axis_nbounds", 2);
          }
          catch (CNetCdfException& e)
          {
@@ -795,8 +820,6 @@ namespace xios
            msg.append(e.what());
            ERROR("CNc4DataOutput::writeFile_ (CFile* file)", << msg);
          }
-         if (file->nbDomain==1) singleDomain=true ;
-         else singleDomain=false ;
       }
 
       void CNc4DataOutput::writeAttribute_ (CVariable* var, const string& fieldId)

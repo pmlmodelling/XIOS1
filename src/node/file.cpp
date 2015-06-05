@@ -182,16 +182,19 @@ namespace xios {
       isOpen=false ;
 
       allDomainEmpty=true ;
-      set<CDomain*> setDomain ;
+      set<CAxis*> setAxis;
+      set<CDomain*> setDomains;
 
       std::vector<CField*>::iterator it, end = this->enabledFields.end();
-      for (it = this->enabledFields.begin() ;it != end; it++)
+      for (it = this->enabledFields.begin(); it != end; it++)
       {
          CField* field = *it;
-         allDomainEmpty&=field->grid->domain->isEmpty() ;
-         setDomain.insert(field->grid->domain) ;
+         allDomainEmpty&=field->grid->domain->isEmpty();
+         setAxis.insert(field->grid->axis);
+         setDomains.insert(field->grid->domain);
       }
-      nbDomain=setDomain.size() ;
+      nbAxis = setAxis.size();
+      nbDomains = setDomains.size();
 
       // create sub communicator for file  
       int color=allDomainEmpty?0:1 ;

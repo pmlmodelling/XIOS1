@@ -16,6 +16,33 @@ extern "C"
 {
   typedef xios::CAxisGroup*  axisgroup_Ptr;
   
+  void cxios_set_axisgroup_bounds(axisgroup_Ptr axisgroup_hdl, double* bounds, int extent1, int extent2)
+  {
+    CTimer::get("XIOS").resume();
+    CArray<double,2> tmp(bounds,shape(extent1,extent2),neverDeleteData) ;
+    axisgroup_hdl->bounds.reference(tmp.copy());
+    axisgroup_hdl->sendAttributToServer(axisgroup_hdl->bounds);
+     CTimer::get("XIOS").suspend();
+  }
+  
+  void cxios_get_axisgroup_bounds(axisgroup_Ptr axisgroup_hdl, double* bounds, int extent1, int extent2)
+  {
+    CTimer::get("XIOS").resume();
+    CArray<double,2> tmp(bounds,shape(extent1,extent2),neverDeleteData) ;
+    tmp=axisgroup_hdl->bounds.getInheritedValue() ;
+     CTimer::get("XIOS").suspend();
+  }
+  
+  bool cxios_is_defined_axisgroup_bounds(axisgroup_Ptr axisgroup_hdl )
+  {
+    CTimer::get("XIOS").resume();
+    bool isDefined = axisgroup_hdl->bounds.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
+  }
+  
+  
+  
   void cxios_set_axisgroup_group_ref(axisgroup_Ptr axisgroup_hdl, const char * group_ref, int group_ref_size)
   {
     std::string group_ref_str;

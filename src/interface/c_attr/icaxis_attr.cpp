@@ -16,6 +16,33 @@ extern "C"
 {
   typedef xios::CAxis*  axis_Ptr;
   
+  void cxios_set_axis_bounds(axis_Ptr axis_hdl, double* bounds, int extent1, int extent2)
+  {
+    CTimer::get("XIOS").resume();
+    CArray<double,2> tmp(bounds,shape(extent1,extent2),neverDeleteData) ;
+    axis_hdl->bounds.reference(tmp.copy());
+    axis_hdl->sendAttributToServer(axis_hdl->bounds);
+     CTimer::get("XIOS").suspend();
+  }
+  
+  void cxios_get_axis_bounds(axis_Ptr axis_hdl, double* bounds, int extent1, int extent2)
+  {
+    CTimer::get("XIOS").resume();
+    CArray<double,2> tmp(bounds,shape(extent1,extent2),neverDeleteData) ;
+    tmp=axis_hdl->bounds.getInheritedValue() ;
+     CTimer::get("XIOS").suspend();
+  }
+  
+  bool cxios_is_defined_axis_bounds(axis_Ptr axis_hdl )
+  {
+    CTimer::get("XIOS").resume();
+    bool isDefined = axis_hdl->bounds.hasInheritedValue();
+    CTimer::get("XIOS").suspend();
+    return isDefined;
+  }
+  
+  
+  
   void cxios_set_axis_long_name(axis_Ptr axis_hdl, const char * long_name, int long_name_size)
   {
     std::string long_name_str;
