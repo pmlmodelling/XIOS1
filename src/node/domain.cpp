@@ -20,12 +20,12 @@ namespace xios {
 
    CDomain::CDomain(void)
       : CObjectTemplate<CDomain>(), CDomainAttributes()
-      , isChecked(false),  relFiles()
+      , isChecked(false), hasBounds(false), hasArea(false), relFiles()
    { /* Ne rien faire de plus */ }
 
    CDomain::CDomain(const StdString & id)
       : CObjectTemplate<CDomain>(id), CDomainAttributes()
-      , isChecked(false), relFiles()
+      , isChecked(false), hasBounds(false), hasArea(false), relFiles()
          { /* Ne rien faire de plus */ }
 
    CDomain::~CDomain(void)
@@ -107,6 +107,10 @@ namespace xios {
           mask.resize(1,nj) ;
           for(int j=0;j<nj;j++) mask(0,j)=mask_tmp(j,0) ;
          }
+
+         if (!area.isEmpty())
+           area.transposeSelf(1, 0);
+
          ni=1 ;
          ibegin=1 ;
          iend=1 ;
@@ -532,6 +536,19 @@ namespace xios {
      }
    }
 
+   void CDomain::checkArea(void)
+   {
+     hasArea = !area.isEmpty();
+     if (hasArea)
+     {
+       if (area.extent(0) != ni || area.extent(1) != nj)
+       {
+         ERROR("void CDomain::checkArea(void)",
+               "The area attribute must be of size ni x nj.");
+       }
+     }
+   }
+
    //----------------------------------------------------------------
 
    void CDomain::checkAttributes(void)
@@ -542,6 +559,7 @@ namespace xios {
       this->checkDomain();
       this->checkZoom();
       this->checkBounds();
+      this->checkArea();
 
       if (context->hasClient)
       { // Côté client uniquement
@@ -560,7 +578,7 @@ namespace xios {
       {
         computeConnectedServer() ;
         sendServerAttribut() ;
-        sendLonLat() ;
+        sendLonLatArea();
       }
 
       this->isChecked = true;
@@ -700,7 +718,7 @@ namespace xios {
   }
 
 
-  void CDomain::sendLonLat(void)
+  void CDomain::sendLonLatArea(void)
   {
     int ns,n,i,j,ind,nv;
     CContext* context = CContext::getCurrent();
@@ -708,11 +726,14 @@ namespace xios {
 
     // send lon lat for each connected server
     CEventClient event(getType(), EVENT_ID_LON_LAT);
+    CEventClient eventArea(getType(), EVENT_ID_AREA);
 
     list<CMessage> list_msg;
+    list<CMessage> list_msgArea;
     list<CArray<int,1> > list_indi,list_indj;
     list<CArray<double,1> >list_lon,list_lat;
     list<CArray<double,2> >list_boundslon,list_boundslat;
+    list<CArray<double,1> > list_area;
 
     for (int ns = 0; ns < connectedServer.size(); ns++)
     {
@@ -728,6 +749,8 @@ namespace xios {
         list_boundslon.push_back(CArray<double,2>(nvertex, nbData));
         list_boundslat.push_back(CArray<double,2>(nvertex, nbData));
       }
+      if (hasArea)
+        list_area.push_back(CArray<double,1>(nbData));
 
       CArray<int,1>& indi = list_indi.back();
       CArray<int,1>& indj = list_indj.back();
@@ -757,6 +780,9 @@ namespace xios {
 
         indi(n) = ibegin + i_index(i - ibegin + 1, j - jbegin + 1) - 1;
         indj(n) = jbegin + j_index(i - ibegin + 1, j - jbegin + 1) - 1;
+
+        if (hasArea)
+          list_area.back()(n) = area(i - ibegin + 1, j - jbegin + 1);
       }
 
       list_msg.push_back(CMessage());
@@ -767,9 +793,18 @@ namespace xios {
       if (hasBounds) list_msg.back() << list_boundslon.back() << list_boundslat.back();
         
       event.push(connectedServer[ns], nbSenders[ns], list_msg.back());
+
+      if (hasArea)
+      {
+        list_msgArea.push_back(CMessage());
+        list_msgArea.back() << this->getId() << list_area.back();
+        eventArea.push(connectedServer[ns], nbSenders[ns], list_msgArea.back());
+      }
     }
 
     client->sendEvent(event);
+    if (hasArea)
+      client->sendEvent(eventArea);
   }
 
 
@@ -786,6 +821,10 @@ namespace xios {
           break;
         case EVENT_ID_LON_LAT:
           recvLonLat(event);
+          return true;
+          break;
+        case EVENT_ID_AREA:
+          recvArea(event);
           return true;
           break;
         default:
@@ -836,6 +875,9 @@ namespace xios {
       bounds_lat_srv.resize(nvertex,zoom_ni_srv*zoom_nj_srv) ;
       bounds_lat_srv = 0. ;
     }
+
+    if (hasArea)
+      area_srv.resize(zoom_ni_srv * zoom_nj_srv);
   }
 
   void CDomain::recvLonLat(CEventServer& event)
@@ -881,10 +923,32 @@ namespace xios {
       }
     }
   }
-   //----------------------------------------------------------------
 
+  void CDomain::recvArea(CEventServer& event)
+  {
+    list<CEventServer::SSubEvent>::iterator it;
+    for (it = event.subEvents.begin(); it != event.subEvents.end(); ++it)
+    {
+      CBufferIn* buffer = it->buffer;
+      string domainId;
+      *buffer >> domainId;
+      get(domainId)->recvArea(it->rank, *buffer);
+    }
+  }
 
+  void CDomain::recvArea(int rank, CBufferIn& buffer)
+  {
+    CArray<int,1> &indi = indiSrv[rank], &indj = indjSrv[rank];
+    CArray<double,1> clientArea;
 
-   ///---------------------------------------------------------------
+    buffer >> clientArea;
 
+    int i, j, ind_srv;
+    for (int ind = 0; ind < indi.numElements(); ind++)
+    {
+      i = indi(ind); j = indj(ind);
+      ind_srv = (i - (zoom_ibegin_srv - 1)) + (j - (zoom_jbegin_srv - 1)) * zoom_ni_srv;
+      area_srv(ind_srv) = clientArea(ind);
+    }
+  }
 } // namespace xios

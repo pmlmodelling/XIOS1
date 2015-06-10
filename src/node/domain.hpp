@@ -36,7 +36,7 @@ namespace xios {
    {
          enum EEventId
          {
-           EVENT_ID_SERVER_ATTRIBUT, EVENT_ID_LON_LAT
+           EVENT_ID_SERVER_ATTRIBUT, EVENT_ID_LON_LAT, EVENT_ID_AREA
          } ;
 
          /// typedef ///
@@ -70,6 +70,7 @@ namespace xios {
 
          void checkZoom(void);
          void checkBounds(void);
+         void checkArea(void);
 
 
       public :
@@ -99,6 +100,7 @@ namespace xios {
 
          CArray<double, 1> lonvalue_srv, latvalue_srv ;
          CArray<double, 2> bounds_lon_srv, bounds_lat_srv ;
+         CArray<double, 1> area_srv;
 
 
         vector<int> connectedServer ; // list of connected server
@@ -118,13 +120,16 @@ namespace xios {
          void addRelFile(const StdString & filename);
          void completeLonLatClient(void);
          void sendServerAttribut(void);
-         void sendLonLat(void);
+         void sendLonLatArea(void);
          void computeConnectedServer(void);
+
          static bool dispatchEvent(CEventServer& event);
          static void recvServerAttribut(CEventServer& event);
          static void recvLonLat(CEventServer& event);
+         static void recvArea(CEventServer& event);
          void recvServerAttribut(CBufferIn& buffer);
          void recvLonLat(int rank, CBufferIn& buffer);
+         void recvArea(int rank, CBufferIn& buffer);
 
          /// Destructeur ///
          virtual ~CDomain(void);
@@ -138,8 +143,9 @@ namespace xios {
          CArray<int, 2> local_mask;
          bool isCurvilinear ;
          bool hasBounds ;
-       private :
+         bool hasArea;
 
+       private :
          /// Proriétés protégées ///
          bool isChecked;
          std::set<StdString> relFiles;
