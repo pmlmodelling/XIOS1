@@ -793,15 +793,22 @@ namespace xios
 
            if (wtime)
            {
-              CDuration duration ;
+              CDuration duration = CDuration::FromString(field->freq_op);
+              duration.solveTimeStep(*context->calendar);
+              StdString freqOpStr = duration.toStringUDUnits();
+              SuperClassWriter::addAttribute("interval_operation", freqOpStr, &fieldid);
 
-              duration=CDuration::FromString(field->freq_op) ;
-              duration.solveTimeStep(*(context->calendar));
-              SuperClassWriter::addAttribute("interval_operation", duration.toString(), &fieldid);
+              duration = CDuration::FromString(field->getRelFile()->output_freq);
+              duration.solveTimeStep(*context->calendar);
+              SuperClassWriter::addAttribute("interval_write", duration.toStringUDUnits(), &fieldid);
 
-              duration=CDuration::FromString(field->getRelFile()->output_freq) ;
-              duration.solveTimeStep(*(context->calendar));
-              SuperClassWriter::addAttribute("interval_write", duration.toString(), &fieldid);
+              StdString cellMethods = coodinates.front() + ": ";
+              if (field->operation.getValue() == "instant") cellMethods += "point";
+              else if (field->operation.getValue() == "average") cellMethods += "mean";
+              else if (field->operation.getValue() == "accumulate") cellMethods += "sum";
+              else cellMethods += field->operation;
+              cellMethods += " (interval: " + freqOpStr + ")";
+              SuperClassWriter::addAttribute("cell_methods", cellMethods, &fieldid);
            }
 
            if (domain->hasArea)

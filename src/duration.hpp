@@ -30,6 +30,7 @@ namespace xios
             struct _duration & solveTimeStep(const CCalendar & c) ;
             /// Autres ///
             StdString toString(void) const;
+            StdString toStringUDUnits(void) const;
 
          public: /* static */
 
