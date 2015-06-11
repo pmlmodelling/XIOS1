@@ -126,6 +126,18 @@ namespace xios
 
       //-----------------------------------------------------------------
 
+    bool operator==(const CDuration& ddr, const CDuration& dr)
+    {
+      return ((ddr.year == dr.year) && (ddr.month  == dr.month)  && (dr.day    == ddr.day) &&
+              (ddr.hour == dr.hour) && (ddr.minute == dr.minute) && (dr.second == ddr.second) &&
+              (ddr.timestep == dr.timestep));
+    }
+
+    bool operator!=(const CDuration& ddr, const CDuration& dr)
+    {
+      return !(ddr == dr);
+    }
+
       /// Les opérateurs de comparaison. (Non testés pour le moment)
       bool operator==(const CDate& dt0, const CDate& dt1)
       {
