@@ -117,20 +117,22 @@ namespace xios
 
       CDate::operator Time(void) const // Non vérifiée, pas optimisée ...
       {
-         // Todo : Tester si la date courante est supérieure à la date initiale.
-         Time retvalue = - relCalendar.getNbSecond(relCalendar.getTimeOrigin())
-                         + relCalendar.getNbSecond(*this);
+        const CCalendar& c = getRelCalendar();
 
-         if ((relCalendar.getId().compare("D360")    == 0) ||
-             (relCalendar.getId().compare("AllLeap") == 0) ||
-             (relCalendar.getId().compare("NoLeap")  == 0))
-         return (retvalue + (getYear() - relCalendar.getTimeOrigin().getYear())
-                                       * relCalendar.getYearTotalLength(*this));
+        // Todo : Tester si la date courante est supérieure à la date initiale.
+        Time t = c.getNbSecond(*this) - c.getNbSecond(c.getTimeOrigin());
 
-         for(CDate _d(relCalendar.getTimeOrigin());
-            _d.getYear() < getYear(); _d.setYear(_d.getYear()+1))
-            retvalue += relCalendar.getYearTotalLength(_d);
-         return (retvalue);
+        if (c.getId().compare("D360") == 0 || c.getId().compare("AllLeap") == 0 || c.getId().compare("NoLeap") == 0)
+        {
+          t += Time(getYear() - c.getTimeOrigin().getYear()) * c.getYearTotalLength(*this);
+        }
+        else
+        {
+          for (CDate d(c.getTimeOrigin()); d.getYear() < getYear(); d.setYear(d.getYear() + 1))
+            t += c.getYearTotalLength(d);
+        }
+
+        return t;
       }
 
       //----------------------------------------------------------------
