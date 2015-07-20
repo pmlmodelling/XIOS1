@@ -109,24 +109,31 @@ namespace xios
 
       CDuration & CDuration::resolve(const CCalendar & c)
       {
-         // Simplification de l'écriture des minutes.
-         second += modf(minute, &minute) * (float)c.getMinuteLength();
-         minute += int(second)/c.getMinuteLength(); second = int(second)%c.getMinuteLength();
+        // Convert year, day, hour and minute to integer
+        month  += modf(year, &year) * c.getYearLength();
+        hour   += modf(day, &day) * c.getDayLength();
+        minute += modf(hour , &hour) * c.getHourLength();
+        second += modf(minute, &minute) * c.getMinuteLength();
 
-         // Simplification de l'écriture des heures.
-         minute += modf(hour , &hour) * (float)c.getHourLength();
-         hour   += int(minute)/c.getHourLength(); minute = int(minute)%c.getHourLength();
+        // Simplify second, minute, day and year
+        double remain;
+        remain = fmod(second, c.getMinuteLength());
+        minute += (second - remain) / c.getMinuteLength();
+        second = remain;
 
-         // Simplification de l'écriture des jours.
-         hour   += modf(day, &day) * (float)c.getDayLength();
-         day    += int(hour)  /c.getDayLength(); hour   = int(hour)%c.getDayLength();
+        remain = fmod(minute, c.getHourLength());
+        hour   += (minute - remain) / c.getHourLength();
+        minute = remain;
 
-         // > Aucune équivalence jour - mois fixée par avance. //
+        remain = fmod(hour, c.getDayLength());
+        day    += (hour - remain) / c.getDayLength();
+        hour   = remain;
 
-         // Simplification de l'écriture des années.
-         month  += modf(year, &year) * (float)c.getYearLength();
-         year   += int(month) /c.getYearLength(); month  = int(month)%c.getYearLength();
-         return *this;
+        remain = fmod(month, c.getYearLength());
+        year   += (month - remain) / c.getYearLength();
+        month  = remain;
+
+        return *this;
       }
 
       //-----------------------------------------------------------------
