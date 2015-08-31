@@ -171,7 +171,7 @@ namespace xios {
       }
 
 
-      if (ni.getValue() < 0 || ibegin.getValue() > iend.getValue() ||
+      if (ni.getValue() < 0 || (ni.getValue() > 0 && ibegin.getValue() > iend.getValue()) ||
           ibegin.getValue() < 1 || iend.getValue() > ni_glo.getValue())
           {
 
@@ -209,7 +209,7 @@ namespace xios {
                << " 2 values from  jend, jbegin, nj  must be defined !") ;
       }
 
-      if (nj.getValue() < 0 || jbegin.getValue() > jend.getValue() ||
+      if (nj.getValue() < 0 || (nj.getValue() > 0 && jbegin.getValue() > jend.getValue()) ||
           jbegin.getValue() < 1 || jend.getValue() > nj_glo.getValue())
          ERROR("CDomain::checkAttributes(void)",
                << "Domain is wrong defined,"
@@ -301,10 +301,10 @@ namespace xios {
 
       if (data_ibegin.isEmpty())
          data_ibegin.setValue(0) ;
-      if (data_jbegin.isEmpty() && (data_dim.getValue() == 2))
+      if (data_jbegin.isEmpty() && data_dim.getValue() == 2)
          data_jbegin.setValue(0) ;
 
-      if (!data_ni.isEmpty() && (data_ni.getValue() <= 0))
+      if (!data_ni.isEmpty() && data_ni.getValue() < 0)
       {
          ERROR("CDomain::checkAttributes(void)",
                << "Data dimension is negative (data_ni).") ;
@@ -318,7 +318,7 @@ namespace xios {
 
       if (data_dim.getValue() == 2)
       {
-         if (!data_nj.isEmpty() && (data_nj.getValue() <= 0) )
+         if (!data_nj.isEmpty() && data_nj.getValue() < 0)
          {
             ERROR("CDomain::checkAttributes(void)",
                   << "Data dimension is negative (data_nj).") ;
@@ -363,7 +363,7 @@ namespace xios {
       else
       {
          if (!data_n_index.isEmpty() ||
-            ((data_dim.getValue() == 2) && (!data_j_index.isEmpty())))
+             (data_dim.getValue() == 2 && !data_j_index.isEmpty()))
             ERROR("CDomain::checkAttributes(void)", << "data_i_index undefined") ;
       }
 
