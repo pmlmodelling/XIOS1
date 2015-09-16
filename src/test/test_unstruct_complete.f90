@@ -29,8 +29,8 @@ PROGRAM test_unstruct_complete
   INTEGER,ALLOCATABLE :: i_index_glo(:)
   INTEGER,ALLOCATABLE :: i_index(:)
   LOGICAL,ALLOCATABLE :: mask_glo(:),mask(:)
-  DOUBLE PRECISION,ALLOCATABLE :: lon(:),lat(:),field_A_srf(:,:), lonvalue(:) ;
-  DOUBLE PRECISION,ALLOCATABLE :: bounds_lon(:,:),bounds_lat(:,:) ;
+  DOUBLE PRECISION,ALLOCATABLE :: lon(:),lat(:),field_A_srf(:,:), lonvalue(:)
+  DOUBLE PRECISION,ALLOCATABLE :: bounds_lon(:,:),bounds_lat(:,:)
   INTEGER :: ni,ibegin,iend,nj,jbegin,jend
   INTEGER :: i,j,l,ts,n
   INTEGER :: ncell_glo,ncell,ind
@@ -104,10 +104,10 @@ PROGRAM test_unstruct_complete
     j2=MAX(j1-ncell_x+1,1)
     j=(j1+j2)/2
     n=NINT(COS(Pi/2-(j-0.5)*PI/nlat)*nlon)
-    np = MIN(n/ncell_x,rank+1) ;
+    np = MIN(n/ncell_x,rank+1)
     if (j2==1) np=rank+1 
     
-    PRINT *,"domain ",j2,j1,rank,np ;
+    PRINT *,"domain ",j2,j1,rank,np
     DO j=j2,j1  
       n=NINT(COS(Pi/2-(j-0.5)*PI/nlat)*nlon)
       IF (n<8) n=8
@@ -132,10 +132,10 @@ PROGRAM test_unstruct_complete
     j2=MIN(j1+ncell_x-1,nlat)
     j=(j1+j2)/2
     n=NINT(COS(Pi/2-(j-0.5)*PI/nlat)*nlon)
-    np = MIN(n/ncell_x,mpi_size-rank) ;
+    np = MIN(n/ncell_x,mpi_size-rank)
     if (j2==nlat) np=mpi_size-rank 
     
-    PRINT *,"domain ",j2,j1,rank,np ;
+    PRINT *,"domain ",j2,j1,rank,np
     DO j=j1,j2  
       n=NINT(COS(Pi/2-(j-0.5)*PI/nlat)*nlon)
       IF (n<8) n=8
@@ -200,11 +200,12 @@ PROGRAM test_unstruct_complete
   CALL xios_get_handle("surface",ctx_hdl)
   CALL xios_set_current_context(ctx_hdl)
   
-  CALL xios_set_axis_attr("axis_srf",size=llm ,value=lval) ;
-  CALL xios_set_domain_attr("domain_srf",ni_glo=ncell_glo, ni=ncell, ibegin=1, i_index=RESHAPE(i_index,(/ncell,1/) ))
-  CALL xios_set_domain_attr("domain_srf",data_dim=1, data_ni=data_n_index, data_n_index=data_n_index, data_i_index=data_i_index, type='unstructured')
-  CALL xios_set_domain_attr("domain_srf",lonvalue=lon,latvalue=lat)
-  CALL xios_set_domain_attr("domain_srf", nvertex=4, bounds_lon=bounds_lon, bounds_lat=bounds_lat )
+  CALL xios_set_axis_attr("axis_srf", size=llm ,value=lval)
+  CALL xios_set_domain_attr("domain_srf", ni_glo=ncell_glo, ni=ncell, ibegin=1, i_index=RESHAPE(i_index,(/ncell,1/)))
+  CALL xios_set_domain_attr("domain_srf", data_dim=1, data_ni=data_n_index, &
+                                          data_n_index=data_n_index, data_i_index=data_i_index, type='unstructured')
+  CALL xios_set_domain_attr("domain_srf", lonvalue=lon, latvalue=lat)
+  CALL xios_set_domain_attr("domain_srf", nvertex=4, bounds_lon=bounds_lon, bounds_lat=bounds_lat)
     
  
   dtime%second=3600
