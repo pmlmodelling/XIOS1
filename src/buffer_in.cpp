@@ -24,7 +24,7 @@ namespace xios
 
     void CBufferIn::realloc(size_t size)
     {
-      realloc(new char[size_],size) ;
+      realloc(new char[size], size);
       own=true ;
     }
 
