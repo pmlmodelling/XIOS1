@@ -17,7 +17,7 @@
 %DEBUG_FFLAGS   -g 
 
 %BASE_INC       -D__NONE__
-%BASE_LD        
+%BASE_LD        -lstdc++
 
 %CPP            cpp
 %FPP            cpp -P
