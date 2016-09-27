@@ -657,8 +657,8 @@ namespace xios
                    CArray<double,2> axisBounds(2, zoom_size);
                    for (int i = 0; i < zoom_size; i++)
                    {
-                     axisBounds(0, i) = axis->bounds(i + zoom_begin, 0);
-                     axisBounds(1, i) = axis->bounds(i + zoom_begin, 1);
+                     axisBounds(0, i) = axis->bounds(0, i + zoom_begin);
+                     axisBounds(1, i) = axis->bounds(1, i + zoom_begin);
                    }
                    SuperClassWriter::writeData(axisBounds, axisBoundsId, isCollective, 0);
                  }

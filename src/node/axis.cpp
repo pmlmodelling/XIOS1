@@ -81,9 +81,9 @@ namespace xios {
 
       if (!bounds.isEmpty())
       {
-        if (bounds.extent(0) != size || bounds.extent(1) != 2)
+        if (bounds.extent(0) != 2 || bounds.extent(1) != size)
             ERROR("CAxis::checkAttributes(void)",
-                  << "The bounds array of the axis [ id = '" << getId() << "' , context = '" << CObjectFactory::GetCurrentContextId() << "' ] must be of dimension axis size x 2" << endl
+                  << "The bounds array of the axis [ id = '" << getId() << "' , context = '" << CObjectFactory::GetCurrentContextId() << "' ] must be of dimension axis 2 x size" << endl
                   << "Axis size is " << size << endl
                   << "Bounds size is "<< bounds.extent(0) << " x " << bounds.extent(1));
       }
