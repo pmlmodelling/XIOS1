@@ -1,0 +1,7 @@
+NETCDF_INCDIR="-I/gpfs1/apps/netcdf/intelmpi/include"
+NETCDF_LIBDIR="-L/gpfs1/apps/netcdf/intelmpi/lib"
+NETCDF_LIB="-lnetcdf"
+HDF5_INCDIR="-I/gpfs1/apps/hdf5/intelmpi/include"
+#HDF5_LIBDIR="-L/gpfs1/apps/hdf5/intelmpi/lib"
+HDF5_LIBDIR="-L/gpfs1/apps/hdf5/intelmpi/lib -L$HOME/local/curl-intel/lib"
+HDF5_LIB="-lhdf5_hl -lhdf5 -lhdf5 -lz -lcurl"
